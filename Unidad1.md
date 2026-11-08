@@ -399,8 +399,6 @@ Se obtienen 3 técnicos: Luis Miguel Ochoa (2 órdenes, $50.00), Diego Armando C
 
 ####  [Link de Drive](https://drive.google.com/drive/folders/1hzvQwYMZTDoqHU94_xC02pPlOfYM9slm?usp=sharing)
 
-####  [Link de Drive](https://app.diagrams.net/#LProyecto_Unidad1.drawio#%7B%22pageId%22%3A%22WUd2yd_Lr1gBbQoTT8JD%22%7D)
-
 ---
 
 
@@ -414,7 +412,7 @@ Se obtienen 3 técnicos: Luis Miguel Ochoa (2 órdenes, $50.00), Diego Armando C
 
 
 
-###   💡 Bibliografia:
+###   🔗 Bibliografia:
 
 🔹 [1] C. J. Sánchez Aldana y F. I. Mosquera Motta, Modelamiento de bases de datos. Bogotá, Colombia: Universidad Piloto de Colombia, 2020. ISBN: 978-958-5106-22-2. [En línea]. Disponible en: https://www.digitaliapublishing.com/a/111424/modelamiento-de-base-de-datos.
 
