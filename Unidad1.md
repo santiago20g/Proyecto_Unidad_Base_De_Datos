@@ -52,18 +52,18 @@ El modelo relacional se obtuvo al transformar cada entidad en una tabla y cada r
 ```SQL
 CREATE TABLE Cliente (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
-    cedula VARCHAR(10) NOT NULL UNIQUE,
+    cedula VARCHAR(10) NOT NULL UNIQUE,
     nombres VARCHAR(100) NOT NULL,
     telefono VARCHAR(15),
     email VARCHAR(100)
-)
+);
 
 CREATE TABLE Tecnico (
     id_tecnico INT AUTO_INCREMENT PRIMARY KEY,
     cedula VARCHAR(10) NOT NULL UNIQUE,
     nombres VARCHAR(100) NOT NULL,
     especialidad VARCHAR(50) NOT NULL
-)
+);
 
 CREATE TABLE Producto (
     id_producto INT AUTO_INCREMENT PRIMARY KEY,
@@ -72,13 +72,13 @@ CREATE TABLE Producto (
     precio DECIMAL(8,2) NOT NULL,
     stock INT NOT NULL DEFAULT 0,
     CONSTRAINT ck_producto_stock CHECK (stock >= 0)
-)
+);
 
 CREATE TABLE Servicio (
     id_servicio INT AUTO_INCREMENT PRIMARY KEY,
     descripcion VARCHAR(100) NOT NULL,
     tarifa_base DECIMAL(8,2) NOT NULL
-)
+);
 
 CREATE TABLE Proveedor (
     id_proveedor INT AUTO_INCREMENT PRIMARY KEY,
@@ -86,7 +86,7 @@ CREATE TABLE Proveedor (
     nombre VARCHAR(100) NOT NULL,
     telefono VARCHAR(15),
     email VARCHAR(100)
-)
+);
 
 CREATE TABLE Equipo (
     id_equipo INT AUTO_INCREMENT PRIMARY KEY,
@@ -96,7 +96,7 @@ CREATE TABLE Equipo (
     numero_serie VARCHAR(50) UNIQUE,
     observaciones TEXT,
     FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente) ON DELETE CASCADE
-)
+);
 
 CREATE TABLE Orden_Reparacion (
     id_orden INT AUTO_INCREMENT PRIMARY KEY,
@@ -109,7 +109,7 @@ CREATE TABLE Orden_Reparacion (
     FOREIGN KEY (id_equipo) REFERENCES Equipo(id_equipo) ON DELETE CASCADE,
     FOREIGN KEY (id_tecnico) REFERENCES Tecnico(id_tecnico),
     CONSTRAINT ck_estado_orden CHECK (estado IN ('En revisión','Aprobado','En reparación','Listo','Entregado'))
-)
+);
 
 CREATE TABLE Pago (
     id_pago INT AUTO_INCREMENT PRIMARY KEY,
@@ -120,7 +120,7 @@ CREATE TABLE Pago (
     FOREIGN KEY (id_orden) REFERENCES Orden_Reparacion(id_orden) ON DELETE CASCADE,
     CONSTRAINT ck_pago_monto CHECK (monto > 0),
     CONSTRAINT ck_pago_forma CHECK (forma_pago IN ('Efectivo','Transferencia'))
-)
+);
 
 CREATE TABLE Garantia (
     id_garantia INT AUTO_INCREMENT PRIMARY KEY,
@@ -130,7 +130,7 @@ CREATE TABLE Garantia (
     fecha_fin DATE NOT NULL,
     FOREIGN KEY (id_orden) REFERENCES Orden_Reparacion(id_orden) ON DELETE CASCADE,
     CONSTRAINT ck_garantia_fechas CHECK (fecha_fin >= fecha_inicio)
-)
+);
 
 CREATE TABLE Detalle_Producto (
     id_orden INT NOT NULL,
@@ -142,7 +142,7 @@ CREATE TABLE Detalle_Producto (
     FOREIGN KEY (id_orden) REFERENCES Orden_Reparacion(id_orden) ON DELETE CASCADE,
     FOREIGN KEY (id_producto) REFERENCES Producto(id_producto),
     CONSTRAINT ck_detalle_cant CHECK (cantidad > 0)
-)
+);
 
 CREATE TABLE Detalle_Servicio (
     id_orden INT NOT NULL,
@@ -151,7 +151,7 @@ CREATE TABLE Detalle_Servicio (
     PRIMARY KEY (id_orden, id_servicio),
     FOREIGN KEY (id_orden) REFERENCES Orden_Reparacion(id_orden) ON DELETE CASCADE,
     FOREIGN KEY (id_servicio) REFERENCES Servicio(id_servicio)
-)
+);
 
 CREATE TABLE Suministro (
     id_proveedor INT NOT NULL,
@@ -162,7 +162,7 @@ CREATE TABLE Suministro (
     FOREIGN KEY (id_proveedor) REFERENCES Proveedor(id_proveedor),
     FOREIGN KEY (id_producto) REFERENCES Producto(id_producto),
     CONSTRAINT ck_suministro_precio CHECK (precio_compra >= 0)
-)
+);
 
 ```
 
@@ -178,7 +178,8 @@ VALUES
     (3, '1100000003', 'Ana Lucia Torres', '0993333333', 'ana.torres@mail.com'),
     (4, '1100000004', 'Jorge Luis Armijos', '0994444444', 'jorge.armijos@mail.com'),
     (5, '1100000005', 'Sofia Valeria Castillo', '0995555555', 'sofia.castillo@mail.com'),
-    (6, '1100000006', 'Pedro Pablo Jaramillo', '0996666666', 'pedro.jaramillo@mail.com'),
+    (6, '1100000006', 'Pedro Pablo Jaramillo', '0996666666', 'pedro.jaramillo@mail.com');
+
 -- Datos de Tecnico
 INSERT INTO Tecnico (id_tecnico, cedula, nombres, especialidad)
 VALUES
@@ -186,9 +187,7 @@ VALUES
     (2, '1100000102', 'Diego Armando Cueva', 'Software'),
     (3, '1100000103', 'Paola Estefania Rojas', 'Hardware y software'),
     (4, '1100000104', 'Karla Nicole Vega', 'Electronica'),
-    (5, '1100000105', 'Andres Felipe Mora', 'Redes y mantenimiento'),
-
-
+    (5, '1100000105', 'Andres Felipe Mora', 'Redes y mantenimiento');
 
 -- Datos de Equipo
 INSERT INTO Equipo (id_equipo, id_cliente, tipo_equipo, marca_modelo, numero_serie, observaciones)
@@ -199,7 +198,8 @@ VALUES
     (4, 1, 'Laptop', 'Asus VivoBook', 'AS5566QWE', 'Bisagra floja'),
     (5, 4, 'PC de escritorio', 'Ensamblada', NULL, 'Gabinete con polvo'),
     (6, 5, 'Laptop', 'Acer Aspire 5', 'AC1122TTT', 'Pantalla con lineas'),
-    (7, 6, 'Laptop', 'Lenovo IdeaPad 3', 'LN3344RRR', 'Se apaga con bateria'),
+    (7, 6, 'Laptop', 'Lenovo IdeaPad 3', 'LN3344RRR', 'Se apaga con bateria');
+
 -- Datos de Orden_Reparacion
 INSERT INTO Orden_Reparacion (id_orden, id_equipo, id_tecnico, fecha_ingreso, problema_informado, estado, total_estimado)
 VALUES
@@ -209,7 +209,7 @@ VALUES
     (4, 4, 3, '2026-10-28 10:15:00', 'No carga la bateria', 'Aprobado', 26.75),
     (5, 5, 2, '2026-11-03 16:20:00', 'Se apaga solo y hace ruido', 'En revisión', 0.0),
     (6, 6, 4, '2026-11-04 14:10:00', 'Pantalla con lineas de colores', 'Listo', 103.0),
-    (7, 2, 3, '2026-11-05 09:00:00', 'Equipo lento, requiere mas memoria', 'En revisión', 65.0),
+    (7, 2, 3, '2026-11-05 09:00:00', 'Equipo lento, requiere mas memoria', 'En revisión', 65.0);
 
 ```
 
@@ -238,7 +238,7 @@ Se desea obtener las órdenes de reparación que están en proceso (estado En re
 SELECT *
 FROM   Orden_Reparacion
 WHERE  (estado = 'En reparación' OR estado = 'Aprobado' OR estado = 'Listo')
-  AND  total_estimado > 50,
+  AND  total_estimado > 50;
 
 ```
 
@@ -270,7 +270,7 @@ Se desea obtener una lista única de los correos electrónicos de las personas c
 
 SELECT email FROM Cliente
 UNION
-SELECT email FROM Proveedor,
+SELECT email FROM Proveedor;
 
 
 ```
@@ -308,7 +308,7 @@ WHERE  c.id_cliente IN (SELECT id_cliente
                        WHERE  tipo_equipo = 'Laptop')
   AND  c.id_cliente NOT IN (SELECT e.id_cliente
                             FROM   Equipo e
-                            JOIN   Orden_Reparacion o ON e.id_equipo = o.id_equipo),
+                            JOIN   Orden_Reparacion o ON e.id_equipo = o.id_equipo);
 
 ```
 
@@ -348,7 +348,7 @@ JOIN   Equipo e ON c.id_cliente = e.id_cliente
 JOIN   Orden_Reparacion o ON e.id_equipo = o.id_equipo
 JOIN   Tecnico t ON o.id_tecnico = t.id_tecnico
 WHERE  o.estado <> 'Entregado'
-ORDER BY o.id_orden,
+ORDER BY o.id_orden;
 
 ```
 
@@ -387,7 +387,7 @@ JOIN     Orden_Reparacion o ON t.id_tecnico = o.id_tecnico
 JOIN     Detalle_Servicio ds ON o.id_orden = ds.id_orden
 GROUP BY t.id_tecnico, t.nombres
 HAVING   SUM(ds.costo_cobrado) >= 25
-ORDER BY ingresos DESC,
+ORDER BY ingresos DESC;
 
 ```
 
