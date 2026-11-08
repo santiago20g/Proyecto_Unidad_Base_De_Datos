@@ -180,6 +180,12 @@ VALUES
     (5, '1100000005', 'Sofia Valeria Castillo', '0995555555', 'sofia.castillo@mail.com'),
     (6, '1100000006', 'Pedro Pablo Jaramillo', '0996666666', 'pedro.jaramillo@mail.com');
 
+```
+<img width="938" height="255" alt="image" src="https://github.com/user-attachments/assets/85843ec3-5988-4829-9e7e-fcda3fa1011a" />
+
+
+```SQL
+
 -- Datos de Tecnico
 INSERT INTO Tecnico (id_tecnico, cedula, nombres, especialidad)
 VALUES
@@ -188,6 +194,12 @@ VALUES
     (3, '1100000103', 'Paola Estefania Rojas', 'Hardware y software'),
     (4, '1100000104', 'Karla Nicole Vega', 'Electronica'),
     (5, '1100000105', 'Andres Felipe Mora', 'Redes y mantenimiento');
+
+```
+<img width="937" height="294" alt="image" src="https://github.com/user-attachments/assets/69b45a1a-9307-4b14-96ee-3da2b144f186" />
+
+
+```SQL
 
 -- Datos de Equipo
 INSERT INTO Equipo (id_equipo, id_cliente, tipo_equipo, marca_modelo, numero_serie, observaciones)
@@ -199,6 +211,12 @@ VALUES
     (5, 4, 'PC de escritorio', 'Ensamblada', NULL, 'Gabinete con polvo'),
     (6, 5, 'Laptop', 'Acer Aspire 5', 'AC1122TTT', 'Pantalla con lineas'),
     (7, 6, 'Laptop', 'Lenovo IdeaPad 3', 'LN3344RRR', 'Se apaga con bateria');
+
+```
+<img width="941" height="220" alt="image" src="https://github.com/user-attachments/assets/9f69a0f3-9119-4e44-96cf-a0da51291d11" />
+
+
+```SQL
 
 -- Datos de Orden_Reparacion
 INSERT INTO Orden_Reparacion (id_orden, id_equipo, id_tecnico, fecha_ingreso, problema_informado, estado, total_estimado)
@@ -212,6 +230,8 @@ VALUES
     (7, 2, 3, '2026-11-05 09:00:00', 'Equipo lento, requiere mas memoria', 'En revisión', 65.0);
 
 ```
+<img width="944" height="193" alt="image" src="https://github.com/user-attachments/assets/3212c093-81c0-4564-bd11-4f173837b14d" />
+
 
 ---
 
