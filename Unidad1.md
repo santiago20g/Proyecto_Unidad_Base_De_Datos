@@ -230,7 +230,8 @@ VALUES
     (7, 2, 3, '2026-11-05 09:00:00', 'Equipo lento, requiere mas memoria', 'En revisión', 65.0);
 
 ```
-<img width="944" height="193" alt="image" src="https://github.com/user-attachments/assets/3212c093-81c0-4564-bd11-4f173837b14d" />
+<img width="1177" height="257" alt="image" src="https://github.com/user-attachments/assets/23d57b20-aafb-487b-a740-2b4542cfa5c0" />
+
 
 
 ---
