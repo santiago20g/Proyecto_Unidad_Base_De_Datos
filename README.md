@@ -15,8 +15,10 @@
 Richard Santiago Guamán Sánchez
 ###    Carrera: 
 Computación - Tercer Ciclo
-###    Asignatura: 
+###    Asignatura:
 Base de Datos
+###    Tema:
+Proyectos de Unidad de Base de Datos
 ###    Período Académico: 
 Septiembre 2026 - Febrero 2027
 ###    Docente: 
