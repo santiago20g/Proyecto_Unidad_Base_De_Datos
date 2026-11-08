@@ -397,8 +397,9 @@ Se obtienen 3 técnicos: Luis Miguel Ochoa (2 órdenes, $50.00), Diego Armando C
 
 ---
 
-####  [Link de Drive]()
+####  [Link de Drive](https://drive.google.com/drive/folders/1hzvQwYMZTDoqHU94_xC02pPlOfYM9slm?usp=sharing)
 
+####  [Link de Drive](https://app.diagrams.net/#LProyecto_Unidad1.drawio#%7B%22pageId%22%3A%22WUd2yd_Lr1gBbQoTT8JD%22%7D)
 
 ---
 
