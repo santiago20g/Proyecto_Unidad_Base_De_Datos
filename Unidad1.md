@@ -1,628 +1,433 @@
 # <p align="center"><strong>🧩 ***Unidad 1*** 🧩</strong></p>
 
 
-##    <p align="center"><strong>🔀 ***Aprendizaje autónomo:***</strong></p>
-###   🟢 Ejemplo 1: Sistema de Biblioteca:
-💡 Descripción: 
+##    <p align="center"><strong>🔀 ***Proyecto de la Unidad 1:***</strong></p>
+###   🟢 Titulo:
 
-Una biblioteca registra libros y autores. Un libro puede tener varios autores y un autor varios libros. Los socios toman libros prestados; de cada préstamo interesan la fecha de retiro y la de devolución.
+**"Implementación de una base de datos para la gestión de venta, mantenimiento y reparación de computadoras y laptops en un taller de servicio técnico"**
 
-####   🖥️ Diagrama Entidad-Relación:
-<img width="865" height="630" alt="image" src="https://github.com/user-attachments/assets/a21380ef-0c6b-47b0-971c-69a1869eb7dd" />
-
-####   🗺️ Modelo Relacional:
-<img width="693" height="903" alt="image" src="https://github.com/user-attachments/assets/47e46617-6be2-4da9-8ef1-a4ecf6f29cc1" />
-
-####   📋 Codigo SQL:
-```SQL
-CREATE TABLE Autor (
-    id_autor VARCHAR(15) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE Libro (
-    id_libro VARCHAR(20) PRIMARY KEY,
-    titulo VARCHAR(150) NOT NULL
-);
-
-CREATE TABLE Escritor (
-    id_autor VARCHAR(15) NOT NULL,
-    id_libro VARCHAR(20) NOT NULL,
-    PRIMARY KEY (id_autor, id_libro),
-    FOREIGN KEY (id_autor) REFERENCES Autor(id_autor),
-    FOREIGN KEY (id_libro) REFERENCES Libro(id_libro)
-);
-
-CREATE TABLE Socio (
-    id_socio VARCHAR(15) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE Prestamo (
-    id_libro VARCHAR(20) NOT NULL,
-    id_socio VARCHAR(15) NOT NULL,
-    fecha_retiro DATE NOT NULL,
-    fecha_devolucion DATE, 
-    PRIMARY KEY (id_libro, id_socio, fecha_retiro),
-    FOREIGN KEY (id_libro) REFERENCES Libro(id_libro),
-    FOREIGN KEY (id_socio) REFERENCES Socio(id_socio)
-);
-```
-
-####   🖥️ Base de Datos:
-<img width="272" height="207" alt="image" src="https://github.com/user-attachments/assets/ada24bdb-197e-419a-9afb-a419e62b6030" />
-
-
-
-####  [Link de Drive](https://drive.google.com/drive/folders/1hQhupWU6kbmxWzCAd7a4b5TH6CNw8TLQ?usp=sharing)
+💡 Contexto del Problema: 
+El problema se presenta en un taller de servicio técnico que vende computadoras de escritorio, laptops, repuestos y accesorios, y que además recibe los equipos de sus clientes para mantenimiento preventivo o reparación, se registran diariamente ventas, recepciones de equipos, diagnósticos, reparaciones, compras a proveedores y cobros, lo que genera un volumen considerable de información que debe guardarse y consultarse de forma ordenada.
+Sin una base de datos, la información suele llevarse en cuadernos, hojas de cálculo o comprobantes sueltos, esto provoca datos duplicados o incompletos, dificultad para conocer el historial de un cliente o de un equipo, pérdida de órdenes de reparación, errores al calcular totales y pagos, desconocimiento del stock real de repuestos y poco registro sobre qué técnico atendió cada trabajo, qué repuestos se utilizaron y qué garantía se ofreció.
+El problema afecta a los clientes, que no reciben información clara sobre el estado de su equipo, los costos ni la garantía, a los técnicos y al personal administrativo, que pierden tiempo buscando datos, y al propietario del taller, que no dispone de información confiable para controlar los ingresos, el inventario y las compras a proveedores.
+Se necesita gestionar los datos de clientes, técnicos, equipos recibidos, órdenes de reparación: fecha de ingreso, problema informado, estado y total estimado, productos y su stock, servicios técnicos y sus tarifas, proveedores y precios de suministro, pagos en efectivo o por transferencia y garantías. Gestionarlos correctamente es importante para evitar la redundancia y las inconsistencias, mantener la integridad entre ellos, por ejemplo: que toda orden pertenezca a un equipo y a un técnico existentes y obtener consultas confiables que apoyen la toma de decisiones del negocio.
 
 ---
-###   🔵 Ejemplo 2: Pedidos de Restaurante:
-💡 Descripción: 
 
-Los clientes realizan pedidos que contienen varios platos con distinta cantidad. Los platos se agrupan en categorías. Cada pedido lo atiende un único mesero. El precio del plato debe registrarse tal como estaba al momento del pedido, aunque luego cambie.
+### 💡 Objetivos
 
-####   🖥️ Diagrama Entidad-Relación:
-<img width="1208" height="644" alt="image" src="https://github.com/user-attachments/assets/cb724d02-852d-4495-ae12-c5b48c23e88b" />
+**Objetivo General**
 
-####   🗺️ Modelo Relacional:
-<img width="692" height="923" alt="image" src="https://github.com/user-attachments/assets/bf0898f5-ee0b-41bd-ad54-67ed7009aada" />
+Diseñar e implementar una base de datos relacional en MySQL, mediante los modelos Entidad-Relación y relacional y el lenguaje SQL, para gestionar de forma ordenada y confiable la información de ventas, órdenes de reparación, inventario, proveedores, pagos y garantías de un taller de venta y reparación de computadoras y laptops.
 
-####   📋 Codigo SQL:
+**Objetivos Específicos**
+
+1.	Elaborar el diagrama Entidad-Relación y el modelo relacional del sistema, identificando las entidades, atributos, relaciones, cardinalidades y claves primarias y foráneas, para evitar la redundancia de datos.
+2.	Implementar el esquema físico en MySQL mediante sentencias SQL con datos de prueba coherentes, y formular cinco consultas en álgebra relacional traducidas a SQL para obtener información útil del sistema.
+
+---
+
+### 📋 Modelos Conceptuales de Bases de Datoos
+
+**Modelo Entidad-Relación (E-R)**
+
+El diagrama Entidad-Relación del sistema está formado por nueve entidades: Cliente, Equipo, Orden_Reparación, Técnico, Servicio, Producto, Proveedor, Pago y Garantía. Las relaciones son: un Cliente posee varios Equipos (1:N), un Equipo genera varias Ordenes de reparación (1:N), un Técnico atiende varias Ordenes (1:N), una Orden registra varios Pagos (1:N) y otorga varias Garantías (1:N), una Orden incluye varios Servicios y un Servicio puede estar en varias Ordenes (N:M, con el atributo costo_cobrado), una Orden usa varios Productos como repuestos y un Producto puede usarse en varias Ordenes (N:M, con los atributos cantidad, precio_unitario y subtotal), y un Producto es suministrado por varios Proveedores y viceversa (N:M, con los atributos precio_compra y fecha_suministro). Las relaciones N:M se convierten en las tablas intermedias Detalle_Servicio, Detalle_Producto y Suministro.
+
+<img width="975" height="812" alt="image" src="https://github.com/user-attachments/assets/1d67757c-c224-4bdd-b23d-d71c9276f2b3" />
+
+
+
+**Modelo Relacional**
+
+El modelo relacional se obtuvo al transformar cada entidad en una tabla y cada relación N:M en una tabla intermedia, para un total de 12 tablas. En el diagrama las claves primarias (PK) se muestran subrayadas y las claves foráneas (FK) se representan con flechas hacia la tabla y la clave que referencian. Los tipos de datos sugeridos son INT para identificadores y cantidades, VARCHAR para textos, DATE y DATETIME para fechas, y DECIMAL para valores monetarios.
+
+<img width="975" height="861" alt="image" src="https://github.com/user-attachments/assets/a067605d-ea75-4747-b519-c06411d4bdc9" />
+
+---
+
+###   📋 Codigo SQL:
+
+**Creación de Tablas (DDL)**
+
 ```SQL
 CREATE TABLE Cliente (
-    id_cliente VARCHAR(15) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL
-);
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    cedula VARCHAR(10) NOT NULL UNIQUE,
+    nombres VARCHAR(100) NOT NULL,
+    telefono VARCHAR(15),
+    email VARCHAR(100)
+)
 
-CREATE TABLE Mesero (
-    id_mesero VARCHAR(15) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE Pedido (
-    id_pedido VARCHAR(20) PRIMARY KEY,
-    id_cliente VARCHAR(15) NOT NULL,
-    id_mesero VARCHAR(15) NOT NULL,
-    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
-    FOREIGN KEY (id_mesero) REFERENCES Mesero(id_mesero)
-);
-
-CREATE TABLE Categoria (
-    id_categoria VARCHAR(15) PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL
-);
-
-CREATE TABLE Plato (
-    id_plato VARCHAR(15) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    precio DECIMAL(6,2) NOT NULL,
-    id_categoria VARCHAR(15) NOT NULL,
-    FOREIGN KEY (id_categoria) REFERENCES Categoria(id_categoria)
-);
-
-CREATE TABLE Detalle_pedido (
-    id_pedido VARCHAR(20) NOT NULL,
-    id_plato VARCHAR(15) NOT NULL,
-    cantidad INT NOT NULL,
-    precio_unitario DECIMAL(6,2) NOT NULL,
-    PRIMARY KEY (id_pedido, id_plato),
-    FOREIGN KEY (id_pedido) REFERENCES Pedido(id_pedido),
-    FOREIGN KEY (id_plato) REFERENCES Plato(id_plato)
-);
-```
-
-####   🖥️ Base de Datos:
-<img width="274" height="232" alt="image" src="https://github.com/user-attachments/assets/f6a1463c-1a0d-48ec-b9a8-cdf0e89181c6" />
-
-
-
-####  [Link de Drive](https://drive.google.com/drive/folders/15EojpwPuwIkJmkd_PfBqXsZQg5T4C80O?usp=sharing)
-
-
----
-###   🟡 Ejemplo 3: Clínica Médica:
-💡 Descripción: 
-
-Los pacientes solicitan citas; cada cita la atiende un médico a un paciente en fecha, hora y consultorio. De algunas citas se genera una receta que incluye medicamentos con dosis y duración. Cada médico pertenece a una especialidad.
-
-####   🖥️ Diagrama Entidad-Relación:
-<img width="1202" height="669" alt="image" src="https://github.com/user-attachments/assets/56105f83-c648-4295-a6d8-09613bcad5db" />
-
-####   🗺️ Modelo Relacional:
-<img width="970" height="1318" alt="image" src="https://github.com/user-attachments/assets/85aaf4b5-f6dc-4844-acdb-443dcad0fd83" />
-
-####   📋 Codigo SQL:
-```SQL
-CREATE TABLE Especialidad (
-    id_especialidad VARCHAR(15) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE Medico (
-    id_medico VARCHAR(15) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    id_especialidad VARCHAR(15) NOT NULL,
-    FOREIGN KEY (id_especialidad) REFERENCES Especialidad(id_especialidad)
-);
-
-CREATE TABLE Paciente (
-    id_paciente VARCHAR(15) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE Cita (
-    id_cita VARCHAR(20) PRIMARY KEY,
-    fecha DATE NOT NULL,
-    hora TIME NOT NULL,
-    consultorio VARCHAR(20) NOT NULL,
-    id_paciente VARCHAR(15) NOT NULL,
-    id_medico VARCHAR(15) NOT NULL,
-    FOREIGN KEY (id_paciente) REFERENCES Paciente(id_paciente),
-    FOREIGN KEY (id_medico) REFERENCES Medico(id_medico)
-);
-
-CREATE TABLE Receta (
-    id_receta VARCHAR(20) PRIMARY KEY,
-    dosis VARCHAR(100) NOT NULL,
-    duracion VARCHAR(100) NOT NULL,
-    id_cita VARCHAR(20) NOT NULL UNIQUE,
-    FOREIGN KEY (id_cita) REFERENCES Cita(id_cita)
-);
-
-CREATE TABLE Medicamento (
-    id_medicamento VARCHAR(15) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE Incluye (
-    id_receta VARCHAR(20) NOT NULL,
-    id_medicamento VARCHAR(15) NOT NULL,
-    PRIMARY KEY (id_receta, id_medicamento),
-    FOREIGN KEY (id_receta) REFERENCES Receta(id_receta),
-    FOREIGN KEY (id_medicamento) REFERENCES Medicamento(id_medicamento)
-);
-```
-
-####   🖥️ Base de Datos:
-<img width="248" height="255" alt="image" src="https://github.com/user-attachments/assets/50a6e821-f20e-4fe7-acc4-59beaa8c76fb" />
-
-
-
-####  [Link de Drive](https://drive.google.com/drive/folders/17ilOvlSg-OAD6ACTYzot7X1PMIALhDFV?usp=sharing)
-
-
----
-###   🟢 Ejemplo 4: Sistema de Aerolínea:
-💡 Descripción: 
-
-Una aerolínea opera vuelos (cada uno con número, fecha, origen y destino), cada vuelo lo realiza un avión. Los pasajeros realizan reservas para un vuelo específico, indicando asiento y tarifa pagada en el momento de la reserva.
-
-####   🖥️ Diagrama Entidad-Relación:
-<img width="1409" height="560" alt="image" src="https://github.com/user-attachments/assets/ee260e5f-38b7-498f-ad94-24c8d644c5e6" />
-
-####   🗺️ Modelo Relacional:
-<img width="1006" height="1007" alt="image" src="https://github.com/user-attachments/assets/3641763b-fb5b-48fd-bfe0-718d9d781d7d" />
-
-####   📋 Codigo SQL:
-```SQL
-CREATE TABLE Avion (
-    id_avion VARCHAR(15) PRIMARY KEY
-);
-
-CREATE TABLE Vuelo (
-    numero VARCHAR(15) PRIMARY KEY,
-    fecha DATE NOT NULL,
-    origen VARCHAR(50) NOT NULL,
-    destino VARCHAR(50) NOT NULL,
-    id_avion VARCHAR(15) NOT NULL,
-    FOREIGN KEY (id_avion) REFERENCES Avion(id_avion)
-);
-
-CREATE TABLE Pasajero (
-    id_pasajero VARCHAR(20) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE Reserva (
-    id_pasajero VARCHAR(20) NOT NULL,
-    numero VARCHAR(15) NOT NULL,
-    asiento VARCHAR(10) NOT NULL,
-    tarifa DECIMAL(8,2) NOT NULL,
-    PRIMARY KEY (id_pasajero, numero),
-    FOREIGN KEY (id_pasajero) REFERENCES Pasajero(id_pasajero),
-    FOREIGN KEY (numero) REFERENCES Vuelo(numero)
-);
-```
-
-####   🖥️ Base de Datos:
-<img width="264" height="197" alt="image" src="https://github.com/user-attachments/assets/ae7fe45c-1fda-41ae-914c-01c2129ef983" />
-
-
-
-####  [Link de Drive](https://drive.google.com/drive/folders/1MsvnrqFU1QINvmm7HHQGngf_oMVNanH-?usp=sharing)
-
-
----
-###   🔵 Ejercicio 5: Empresa Discográfica:
-💡 Descripción: 
-
-Una empresa discográfica necesita modelar los datos sobre sus diferentes recursos según las siguientes características:
-
-🔹 Manager: de cada mánager se almacena un identificador de manager y su nombre. Un manager representa a una serie de artistas.
-
-🔹 Artista: un artista es representado por un manager. De los artistas se almacena su nombre completo (usando un único atributo) y su NIF.
-
-🔹 Evento de promoción: los artistas participan en eventos de promoción para dar a conocer sus trabajos. En un evento de promoción pueden participar varios artistas. De un evento se almacena un identificador único, la fecha de celebración y el número de asistentes.
-
-
-####   🖥️ Diagrama Entidad-Relación:
-<img width="1349" height="352" alt="image" src="https://github.com/user-attachments/assets/5bd405b3-2cf6-400b-9322-0c976f3440a1" />
-
-####   🗺️ Modelo Relacional:
-<img width="1079" height="837" alt="image" src="https://github.com/user-attachments/assets/e33acbd3-f82e-4982-a6f6-359aa8a313a4" />
-
-####   📋 Codigo SQL:
-```SQL
-CREATE TABLE Manager (
-    id_manager VARCHAR(20) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE Artista (
-    NIF VARCHAR(20) PRIMARY KEY,
-    nombre VARCHAR(150) NOT NULL,
-    id_manager VARCHAR(20) NOT NULL,
-    FOREIGN KEY (id_manager) REFERENCES Manager(id_manager)
-);
-
-CREATE TABLE Evento_promocion (
-    id_evento VARCHAR(20) PRIMARY KEY,
-    fecha_celebracion DATE NOT NULL,
-    numero_asistentes INT NOT NULL
-);
-
-CREATE TABLE Participa (
-    NIF VARCHAR(20) NOT NULL,
-    id_evento VARCHAR(20) NOT NULL,
-    PRIMARY KEY (NIF, id_evento),
-    FOREIGN KEY (NIF) REFERENCES Artista(NIF),
-    FOREIGN KEY (id_evento) REFERENCES Evento_promocion(id_evento)
-);
-```
-
-####   🖥️ Base de Datos:
-<img width="295" height="195" alt="image" src="https://github.com/user-attachments/assets/6a9a2cd5-8eec-4d52-9fa8-f2c951fd2a41" />
-
-
-
-####  [Link de Drive](https://drive.google.com/drive/folders/1gvZnFkp6V38QNySb1mzMLyA6Oi3OHEk6?usp=sharing)
-
-
----
-###   🟡 Ejercicio 6: Tienda Informática:
-💡 Descripción: 
-
-Se desea crear una aplicación para la gestión de una tienda informática. La tienda dispone de una serie de productos que se venden a los clientes. De cada producto informático se desea guardar el código, descripción, precio y número de existencias. De cada cliente se desea guardar el código, nombre, apellidos, dirección y número telefónico. Un cliente puede comprar varios productos en la tienda y un mismo producto puede ser comprado por varios clientes. Cada vez que se compre un artículo quedará registrada la compra en la base de datos junto con la fecha en la que se compró el artículo. La tienda tiene contactos con varios proveedores que son los que suministran los productos. Un mismo producto puede ser suministrado por varios proveedores. De cada proveedor se desea guardar el código, nombres, apellidos, dirección, provincia y número de teléfono.
-
-####   🖥️ Diagrama Entidad-Relación:
-<img width="1859" height="366" alt="image" src="https://github.com/user-attachments/assets/f0ef1899-d412-4928-9bcd-ca65735a144f" />
-
-####   🗺️ Modelo Relacional:
-<img width="1001" height="1083" alt="image" src="https://github.com/user-attachments/assets/d0d7ed61-10f1-42b8-ac06-68a2612fbe52" />
-
-####   📋 Codigo SQL:
-```SQL
-CREATE TABLE Cliente (
-    codigo VARCHAR(15) PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
-    apellidos VARCHAR(50) NOT NULL,
-    direccion VARCHAR(200),
-    telefono VARCHAR(15)
-);
+CREATE TABLE Tecnico (
+    id_tecnico INT AUTO_INCREMENT PRIMARY KEY,
+    cedula VARCHAR(10) NOT NULL UNIQUE,
+    nombres VARCHAR(100) NOT NULL,
+    especialidad VARCHAR(50) NOT NULL
+)
 
 CREATE TABLE Producto (
-    codigo VARCHAR(15) PRIMARY KEY,
-    descripcion VARCHAR(200) NOT NULL,
+    id_producto INT AUTO_INCREMENT PRIMARY KEY,
+    codigo VARCHAR(20) NOT NULL UNIQUE,
+    nombre VARCHAR(100) NOT NULL,
     precio DECIMAL(8,2) NOT NULL,
-    existencias INT NOT NULL
-);
+    stock INT NOT NULL DEFAULT 0,
+    CONSTRAINT ck_producto_stock CHECK (stock >= 0)
+)
 
-CREATE TABLE Compra (
-    id_compra VARCHAR(20) PRIMARY KEY,
-    codigo_cliente VARCHAR(15) NOT NULL,
-    codigo_producto VARCHAR(15) NOT NULL,
-    fecha DATE NOT NULL,
-    FOREIGN KEY (codigo_cliente) REFERENCES Cliente(codigo),
-    FOREIGN KEY (codigo_producto) REFERENCES Producto(codigo)
-);
+CREATE TABLE Servicio (
+    id_servicio INT AUTO_INCREMENT PRIMARY KEY,
+    descripcion VARCHAR(100) NOT NULL,
+    tarifa_base DECIMAL(8,2) NOT NULL
+)
 
 CREATE TABLE Proveedor (
-    codigo VARCHAR(15) PRIMARY KEY,
-    nombres VARCHAR(50) NOT NULL,
-    apellidos VARCHAR(50) NOT NULL,
-    direccion VARCHAR(200),
-    provincia VARCHAR(50),
-    telefono VARCHAR(15)
-);
-
-CREATE TABLE Suministra (
-    codigo_producto VARCHAR(15) NOT NULL,
-    codigo_proveedor VARCHAR(15) NOT NULL,
-    PRIMARY KEY (codigo_producto, codigo_proveedor),
-    FOREIGN KEY (codigo_producto) REFERENCES Producto(codigo),
-    FOREIGN KEY (codigo_proveedor) REFERENCES Proveedor(codigo)
-);
-```
-
-####   🖥️ Base de Datos:
-<img width="243" height="218" alt="image" src="https://github.com/user-attachments/assets/46c12545-f812-48ec-9605-d4e0cce35df4" />
-
-
-
-####  [Link de Drive](https://drive.google.com/drive/folders/1tC8E_G8xD8Vg-YQP8zLLZIoqTPgkaejA?usp=sharing)
-
-
----
-###   🟢 Ejercicio 7: Discos Musicales:
-💡 Descripción:
-
-🔹 La tienda vende discos de diferentes géneros musicales y cantantes
-
-🔹 Cada género musical tiene un identificador
-
-🔹 Cada disco tiene título, género musical, precio y cantante
-
-🔹 De un cantante se registra el nombre y su país, Todo disco pertenece a un cantante y un cantante puede tener muchos discos. Además, un disco tiene un conjunto de canciones (identificador y título)
-
-🔹 Un disco tiene muchas canciones y una canción puede estar en varios discos. Interesa conocer la posición de una canción en un determinado disco
-
-
-####   🖥️ Diagrama Entidad-Relación:
-<img width="1579" height="670" alt="image" src="https://github.com/user-attachments/assets/7b19d096-db7f-4ebb-ae77-cd370e65425e" />
-
-####   🗺️ Modelo Relacional:
-<img width="999" height="1307" alt="image" src="https://github.com/user-attachments/assets/c44b3140-8c15-431a-af60-d47bb850bc7f" />
-
-####   📋 Codigo SQL:
-```SQL
-CREATE TABLE Genero (
-    id_genero VARCHAR(15) PRIMARY KEY
-);
-
-CREATE TABLE Cantante (
-    id_cantante VARCHAR(15) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    pais VARCHAR(50) NOT NULL
-);
-
-CREATE TABLE Disco (
-    identificador VARCHAR(20) PRIMARY KEY,
-    titulo VARCHAR(100) NOT NULL,
-    precio DECIMAL(6,2) NOT NULL,
-    id_genero VARCHAR(15) NOT NULL,
-    id_cantante VARCHAR(15) NOT NULL,
-    FOREIGN KEY (id_genero) REFERENCES Genero(id_genero),
-    FOREIGN KEY (id_cantante) REFERENCES Cantante(id_cantante)
-);
-
-CREATE TABLE Cancion (
-    id_cancion VARCHAR(20) PRIMARY KEY,
-    titulo VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE Contiene (
-    id_disco VARCHAR(20) NOT NULL,
-    id_cancion VARCHAR(20) NOT NULL,
-    posicion INT NOT NULL,
-    PRIMARY KEY (id_disco, id_cancion),
-    FOREIGN KEY (id_disco) REFERENCES Disco(identificador),
-    FOREIGN KEY (id_cancion) REFERENCES Cancion(id_cancion)
-);
-```
-
-####   🖥️ Base de Datos:
-<img width="243" height="209" alt="image" src="https://github.com/user-attachments/assets/5404d114-06a6-4814-b34f-0fca1a1e00a5" />
-
-
-
-####  [Link de Drive](https://drive.google.com/drive/folders/1G3xQmpwxqGkur2PfI7_OYtHAcB4PGqLa?usp=sharing)
-
-
----
-###   🔵 Ejercicio 8: Camiones:
-💡 Descripción: 
-
-Se desea informatizar la gestión de una empresa de transporte que reparte paquetes por toda España. Los encargados de llevar los paquetes son los camioneros, de los que se quiere guardar la cédula, nombre, teléfono, dirección, salario y población en que vive. De los paquetes transportados interesa conocer el código del paquete, descripción, destinatario y dirección del destinatario.
-
-Un camionero distribuye muchos paquetes, y un paquete sólo puede ser distribuido por un camionero. De las provincias a las que llegan los paquetes interesa guardar el código de provincia y el nombre. Un paquete sólo puede llegar a una provincia. Sin embargo, a una provincia pueden llegar varios paquetes.
-
-De los camiones que llevan los camioneros, interesa conocer la matrícula, modelo, tipo y potencia. Un camionero puede conducir diferentes camiones en fechas diferentes, y un camión puede ser conducido por varios camioneros.
-
-
-####   🖥️ Diagrama Entidad-Relación:
-<img width="1245" height="834" alt="image" src="https://github.com/user-attachments/assets/5b3e415d-1636-43c0-87e3-94223a868308" />
-
-####   🗺️ Modelo Relacional:
-<img width="1110" height="906" alt="image" src="https://github.com/user-attachments/assets/f054c39b-b983-4594-a91d-a68e18080805" />
-
-####   📋 Codigo SQL:
-```SQL
-CREATE TABLE Provincia (
-    codigo VARCHAR(15) PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL
-);
-
-CREATE TABLE Camionero (
-    cedula VARCHAR(15) PRIMARY KEY,
+    id_proveedor INT AUTO_INCREMENT PRIMARY KEY,
+    ruc VARCHAR(13) NOT NULL UNIQUE,
     nombre VARCHAR(100) NOT NULL,
     telefono VARCHAR(15),
-    direccion VARCHAR(200),
-    salario DECIMAL(8,2) NOT NULL,
-    poblacion VARCHAR(50)
-);
+    email VARCHAR(100)
+)
 
-CREATE TABLE Paquete (
-    codigo VARCHAR(20) PRIMARY KEY,
-    descripcion VARCHAR(200),
-    destinatario VARCHAR(100) NOT NULL,
-    direccion_destinatario VARCHAR(200) NOT NULL,
-    codigo_provincia VARCHAR(15) NOT NULL,
-    cedula_camionero VARCHAR(15) NOT NULL,
-    FOREIGN KEY (codigo_provincia) REFERENCES Provincia(codigo),
-    FOREIGN KEY (cedula_camionero) REFERENCES Camionero(cedula)
-);
+CREATE TABLE Equipo (
+    id_equipo INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT NOT NULL,
+    tipo_equipo VARCHAR(50) NOT NULL,
+    marca_modelo VARCHAR(100) NOT NULL,
+    numero_serie VARCHAR(50) UNIQUE,
+    observaciones TEXT,
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente) ON DELETE CASCADE
+)
 
-CREATE TABLE Camion (
-    matricula VARCHAR(15) PRIMARY KEY,
-    modelo VARCHAR(50),
-    tipo VARCHAR(50),
-    potencia VARCHAR(20)
-);
+CREATE TABLE Orden_Reparacion (
+    id_orden INT AUTO_INCREMENT PRIMARY KEY,
+    id_equipo INT NOT NULL,
+    id_tecnico INT NOT NULL,
+    fecha_ingreso DATETIME NOT NULL,
+    problema_informado TEXT NOT NULL,
+    estado VARCHAR(30) NOT NULL DEFAULT 'En revisión',
+    total_estimado DECIMAL(10,2) DEFAULT 0,
+    FOREIGN KEY (id_equipo) REFERENCES Equipo(id_equipo) ON DELETE CASCADE,
+    FOREIGN KEY (id_tecnico) REFERENCES Tecnico(id_tecnico),
+    CONSTRAINT ck_estado_orden CHECK (estado IN ('En revisión','Aprobado','En reparación','Listo','Entregado'))
+)
 
-CREATE TABLE Conduce (
-    cedula VARCHAR(15) NOT NULL,
-    matricula VARCHAR(15) NOT NULL,
-    fecha DATE NOT NULL,
-    PRIMARY KEY (cedula, matricula, fecha),
-    FOREIGN KEY (cedula) REFERENCES Camionero(cedula),
-    FOREIGN KEY (matricula) REFERENCES Camion(matricula)
-);
+CREATE TABLE Pago (
+    id_pago INT AUTO_INCREMENT PRIMARY KEY,
+    id_orden INT NOT NULL,
+    fecha_pago DATETIME NOT NULL,
+    monto DECIMAL(10,2) NOT NULL,
+    forma_pago VARCHAR(20) NOT NULL,
+    FOREIGN KEY (id_orden) REFERENCES Orden_Reparacion(id_orden) ON DELETE CASCADE,
+    CONSTRAINT ck_pago_monto CHECK (monto > 0),
+    CONSTRAINT ck_pago_forma CHECK (forma_pago IN ('Efectivo','Transferencia'))
+)
+
+CREATE TABLE Garantia (
+    id_garantia INT AUTO_INCREMENT PRIMARY KEY,
+    id_orden INT NOT NULL,
+    descripcion VARCHAR(150) NOT NULL,
+    fecha_inicio DATE NOT NULL,
+    fecha_fin DATE NOT NULL,
+    FOREIGN KEY (id_orden) REFERENCES Orden_Reparacion(id_orden) ON DELETE CASCADE,
+    CONSTRAINT ck_garantia_fechas CHECK (fecha_fin >= fecha_inicio)
+)
+
+CREATE TABLE Detalle_Producto (
+    id_orden INT NOT NULL,
+    id_producto INT NOT NULL,
+    cantidad INT NOT NULL,
+    precio_unitario DECIMAL(8,2) NOT NULL,
+    subtotal DECIMAL(8,2) NOT NULL,
+    PRIMARY KEY (id_orden, id_producto),
+    FOREIGN KEY (id_orden) REFERENCES Orden_Reparacion(id_orden) ON DELETE CASCADE,
+    FOREIGN KEY (id_producto) REFERENCES Producto(id_producto),
+    CONSTRAINT ck_detalle_cant CHECK (cantidad > 0)
+)
+
+CREATE TABLE Detalle_Servicio (
+    id_orden INT NOT NULL,
+    id_servicio INT NOT NULL,
+    costo_cobrado DECIMAL(8,2) NOT NULL,
+    PRIMARY KEY (id_orden, id_servicio),
+    FOREIGN KEY (id_orden) REFERENCES Orden_Reparacion(id_orden) ON DELETE CASCADE,
+    FOREIGN KEY (id_servicio) REFERENCES Servicio(id_servicio)
+)
+
+CREATE TABLE Suministro (
+    id_proveedor INT NOT NULL,
+    id_producto INT NOT NULL,
+    precio_compra DECIMAL(8,2) NOT NULL,
+    fecha_suministro DATE NOT NULL,
+    PRIMARY KEY (id_proveedor, id_producto),
+    FOREIGN KEY (id_proveedor) REFERENCES Proveedor(id_proveedor),
+    FOREIGN KEY (id_producto) REFERENCES Producto(id_producto),
+    CONSTRAINT ck_suministro_precio CHECK (precio_compra >= 0)
+)
+
 ```
 
-####   🖥️ Base de Datos:
-<img width="251" height="215" alt="image" src="https://github.com/user-attachments/assets/def4a244-c51b-4749-b555-96fd9bc44143" />
+**Inserción de Datos (DML)**
 
-
-
-####  [Link de Drive](https://drive.google.com/drive/folders/1RZKvtSmcNUIOk9PDdZWvTyZTa-PSODGP?usp=sharing)
-
-
----
-###   🟡 Ejercicio 9: Veterinaria:
-💡 Descripción: 
-
-🔹 Del propietario interesa: cédula, apellidos, nombres, dirección, teléfonos
-
-🔹 De la mascota interesa: identificador, nombre, fecha de nacimiento, tipo
-
-🔹 Un propietario puede llevar una o varias mascotas
-
-🔹 Una mascota la lleva uno y solo un propietario
-
-🔹 Del personal de la clínica veterinaria interesa un código, la cédula, nombre
-
-🔹 Entre el personal de la clínica se distingue a los veterinarios y los auxiliares, pudiendo haber otros tipos
-   - Del veterinario se guarda además su fecha_alta y especialidad
-   - De los auxiliares interesa su base de cotización
-
-🔹Las mascotas pasan consulta con los veterinarios. De manera que:
-   - Un veterinario puede pasar consulta a ninguna o a varias mascotas, y una misma mascota de la clínica ha pasado consulta una o más veces en fechas diferentes con varios veterinarios.
-   - AL pasar consulta se realiza un diagnóstico.
-
-🔹 Cada propietario tiene un familiar de contacto para casos de emergencia.
-   - De este familiar interesa la cédula, nombre y teléfono.
-   - Si el propietario se da de alta en la clínica veterinaria, el familiar ya no interesa.
-   - El familiar es contacto de un solo propietario
-
-
-####   🖥️ Diagrama Entidad-Relación:
-<img width="1328" height="751" alt="image" src="https://github.com/user-attachments/assets/e468d47c-cc4b-4175-917d-94f9a2ce92b1" />
-
-####   🗺️ Modelo Relacional:
-<img width="1040" height="1762" alt="image" src="https://github.com/user-attachments/assets/2e5954f4-c114-43ac-946e-e2061743a083" />
-
-####   📋 Codigo SQL:
 ```SQL
-CREATE TABLE Propietario (
-    cedula VARCHAR(15) PRIMARY KEY,
-    nombres VARCHAR(50) NOT NULL,
-    apellidos VARCHAR(50) NOT NULL,
-    direccion VARCHAR(200)
-);
 
-CREATE TABLE Telefono_propietario (
-    cedula VARCHAR(15) NOT NULL,
-    telefono VARCHAR(15) NOT NULL,
-    PRIMARY KEY (cedula, telefono),
-    FOREIGN KEY (cedula) REFERENCES Propietario(cedula)
-);
+-- Datos de Cliente
+INSERT INTO Cliente (id_cliente, cedula, nombres, telefono, email)
+VALUES
+    (1, '1100000001', 'Maria Fernanda Lopez', '0991111111', 'maria.lopez@mail.com'),
+    (2, '1100000002', 'Carlos Andres Perez', '0992222222', 'carlos.perez@mail.com'),
+    (3, '1100000003', 'Ana Lucia Torres', '0993333333', 'ana.torres@mail.com'),
+    (4, '1100000004', 'Jorge Luis Armijos', '0994444444', 'jorge.armijos@mail.com'),
+    (5, '1100000005', 'Sofia Valeria Castillo', '0995555555', 'sofia.castillo@mail.com'),
+    (6, '1100000006', 'Pedro Pablo Jaramillo', '0996666666', 'pedro.jaramillo@mail.com'),
+-- Datos de Tecnico
+INSERT INTO Tecnico (id_tecnico, cedula, nombres, especialidad)
+VALUES
+    (1, '1100000101', 'Luis Miguel Ochoa', 'Hardware'),
+    (2, '1100000102', 'Diego Armando Cueva', 'Software'),
+    (3, '1100000103', 'Paola Estefania Rojas', 'Hardware y software'),
+    (4, '1100000104', 'Karla Nicole Vega', 'Electronica'),
+    (5, '1100000105', 'Andres Felipe Mora', 'Redes y mantenimiento'),
 
-CREATE TABLE Familiar_contacto (
-    cedula VARCHAR(15) PRIMARY KEY,
-    cedula_propietario VARCHAR(15) NOT NULL UNIQUE,
-    nombre VARCHAR(100) NOT NULL,
-    telefono VARCHAR(15),
-    FOREIGN KEY (cedula_propietario) REFERENCES Propietario(cedula)
-);
 
-CREATE TABLE Mascota (
-    id_mascota VARCHAR(15) PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
-    tipo VARCHAR(30) NOT NULL,
-    fecha_nacimiento DATE,
-    cedula_propietario VARCHAR(15) NOT NULL,
-    FOREIGN KEY (cedula_propietario) REFERENCES Propietario(cedula)
-);
 
-CREATE TABLE Personal (
-    codigo VARCHAR(15) PRIMARY KEY,
-    cedula VARCHAR(15) NOT NULL UNIQUE,
-    nombre VARCHAR(100) NOT NULL
-);
+-- Datos de Equipo
+INSERT INTO Equipo (id_equipo, id_cliente, tipo_equipo, marca_modelo, numero_serie, observaciones)
+VALUES
+    (1, 1, 'Laptop', 'HP Pavilion 15', '5CD1234ABC', 'Teclado con teclas desgastadas'),
+    (2, 2, 'PC de escritorio', 'Lenovo ThinkCentre M720', 'PC0X9876', 'Sin observaciones'),
+    (3, 3, 'Laptop', 'Dell Inspiron 14', 'DL7788XYZ', 'Rayones en la tapa'),
+    (4, 1, 'Laptop', 'Asus VivoBook', 'AS5566QWE', 'Bisagra floja'),
+    (5, 4, 'PC de escritorio', 'Ensamblada', NULL, 'Gabinete con polvo'),
+    (6, 5, 'Laptop', 'Acer Aspire 5', 'AC1122TTT', 'Pantalla con lineas'),
+    (7, 6, 'Laptop', 'Lenovo IdeaPad 3', 'LN3344RRR', 'Se apaga con bateria'),
+-- Datos de Orden_Reparacion
+INSERT INTO Orden_Reparacion (id_orden, id_equipo, id_tecnico, fecha_ingreso, problema_informado, estado, total_estimado)
+VALUES
+    (1, 1, 1, '2026-10-05 09:30:00', 'Laptop lenta y se calienta', 'Entregado', 59.0),
+    (2, 2, 2, '2026-10-12 11:00:00', 'No inicia el sistema operativo', 'Entregado', 74.0),
+    (3, 3, 1, '2026-10-20 15:45:00', 'La pantalla no enciende', 'En reparación', 103.0),
+    (4, 4, 3, '2026-10-28 10:15:00', 'No carga la bateria', 'Aprobado', 26.75),
+    (5, 5, 2, '2026-11-03 16:20:00', 'Se apaga solo y hace ruido', 'En revisión', 0.0),
+    (6, 6, 4, '2026-11-04 14:10:00', 'Pantalla con lineas de colores', 'Listo', 103.0),
+    (7, 2, 3, '2026-11-05 09:00:00', 'Equipo lento, requiere mas memoria', 'En revisión', 65.0),
 
-CREATE TABLE Veterinario (
-    codigo VARCHAR(15) PRIMARY KEY,
-    fecha_alta DATE NOT NULL,
-    especialidad VARCHAR(50),
-    FOREIGN KEY (codigo) REFERENCES Personal(codigo)
-);
-
-CREATE TABLE Consulta (
-    id_mascota VARCHAR(15) NOT NULL,
-    codigo_veterinario VARCHAR(15) NOT NULL,
-    fecha DATE NOT NULL,
-    diagnostico VARCHAR(255),
-    PRIMARY KEY (id_mascota, codigo_veterinario, fecha),
-    FOREIGN KEY (id_mascota) REFERENCES Mascota(id_mascota),
-    FOREIGN KEY (codigo_veterinario) REFERENCES Veterinario(codigo)
-);
-
-CREATE TABLE Auxiliar (
-    codigo VARCHAR(15) PRIMARY KEY,
-    base_cotizacion DECIMAL(8,2) NOT NULL,
-    FOREIGN KEY (codigo) REFERENCES Personal(codigo)
-);
 ```
 
-####   🖥️ Base de Datos:
-<img width="308" height="278" alt="image" src="https://github.com/user-attachments/assets/2bd16183-b73f-4c5f-83cf-9639e79e5a1f" />
+---
+
+###   🔎 Consulta de Algebra Relacional y Traducir a SQL
+
+**Consulta 1 — Selección (operador: Selección σ)**
+
+#### Descripción:
+
+Se desea obtener las órdenes de reparación que están en proceso (estado En reparación, Aprobado o Listo) y cuyo total estimado supera los $50, para dar prioridad a los trabajos de mayor valor.
+
+#### Álgebra Relacional:
+
+```SQL
+
+σ (estado = 'En reparación' ∨ estado = 'Aprobado' ∨ estado = 'Listo') ∧ total_estimado > 50 (Orden_Reparacion)
+
+```
+
+#### SQL:
+
+```SQL
+
+SELECT *
+FROM   Orden_Reparacion
+WHERE  (estado = 'En reparación' OR estado = 'Aprobado' OR estado = 'Listo')
+  AND  total_estimado > 50,
+
+```
+
+#### Resultado esperado:
+
+Se obtienen 2 órdenes: la orden 3 (En reparación, $103.00) y la orden 6 (Listo, $103.00). La orden 4 (Aprobado) no aparece porque su total estimado es de $26.75.
 
 
 
-####  [Link de Drive](https://drive.google.com/drive/folders/1tK3lw2Ddf1jrLu0VS-DtI63q4aQorKpj?usp=sharing)
+
+
+**Consulta 2 — Proyección y Unión (operadores: Proyección π y Unión ∪)**
+
+#### Descripción:
+
+Se desea obtener una lista única de los correos electrónicos de las personas con quienes se comunica el taller (clientes y proveedores), por ejemplo: para enviar un comunicado general. Primero se proyecta la columna email de cada tabla y luego se unen los resultados eliminando los duplicados.
+
+#### Álgebra Relacional:
+
+```SQL
+
+π email (Cliente) ∪ π email (Proveedor)
+
+```
+
+#### SQL:
+
+```SQL
+
+SELECT email FROM Cliente
+UNION
+SELECT email FROM Proveedor,
+
+
+```
+
+#### Resultado esperado:
+
+Se muestra una sola columna (email) con 11 correos distintos: los 6 de los clientes y los 5 de los proveedores.
+
+
+
+
+
+**Consulta 3 — Selección, Proyección y Diferencia (σ + π + −)**
+
+#### Descripción:
+
+Se desea conocer el nombre y el teléfono de los clientes que tienen registrada al menos una laptop, pero cuyos equipos nunca han ingresado a una orden de reparación. Se seleccionan los clientes con equipos de tipo Laptop y a ese conjunto se le resta el de los clientes cuyos equipos aparecen en alguna orden.
+
+#### Álgebra Relacional:
+
+```SQL
+
+π nombres, telefono (Cliente ⋈ (π id_cliente (σ tipo_equipo = 'Laptop' (Equipo)) − π id_cliente (Equipo ⋈ Orden_Reparacion)))
+
+```
+
+#### SQL:
+
+```SQL
+
+SELECT c.nombres, c.telefono
+FROM   Cliente c
+WHERE  c.id_cliente IN (SELECT id_cliente
+                       FROM   Equipo
+                       WHERE  tipo_equipo = 'Laptop')
+  AND  c.id_cliente NOT IN (SELECT e.id_cliente
+                            FROM   Equipo e
+                            JOIN   Orden_Reparacion o ON e.id_equipo = o.id_equipo),
+
+```
+
+#### Resultado esperado:
+
+Se obtiene un solo registro: Pedro Pablo Jaramillo (0996666666), cuya laptop Lenovo IdeaPad 3 todavía no ha ingresado a una orden de reparación.
+
+
+
+
+
+**Consulta 4 — Reunión natural / JOIN (operador: ⋈)**
+
+#### Descripción:
+
+Se desea listar las órdenes de reparación que aún no han sido entregadas, mostrando el cliente, el equipo, el técnico responsable, el estado y el total estimado. Para ello se combinan cuatro tablas mediante sus claves foráneas.
+
+#### Álgebra Relacional:
+
+```SQL
+
+π c.nombres, e.marca_modelo, t.nombres, o.estado, o.total_estimado
+   (σ o.estado ≠ 'Entregado' (Cliente c ⋈ c.id_cliente = e.id_cliente Equipo e
+      ⋈ e.id_equipo = o.id_equipo Orden_Reparacion o
+      ⋈ o.id_tecnico = t.id_tecnico Tecnico t))
+
+```
+
+#### SQL:
+
+```SQL
+
+SELECT c.nombres AS cliente, e.marca_modelo AS equipo,
+       t.nombres AS tecnico, o.estado, o.total_estimado
+FROM   Cliente c
+JOIN   Equipo e ON c.id_cliente = e.id_cliente
+JOIN   Orden_Reparacion o ON e.id_equipo = o.id_equipo
+JOIN   Tecnico t ON o.id_tecnico = t.id_tecnico
+WHERE  o.estado <> 'Entregado'
+ORDER BY o.id_orden,
+
+```
+
+#### Resultado esperado:
+
+Se obtienen 5 filas (las órdenes 3 a 7), por ejemplo: Ana Lucia Torres, Dell Inspiron 14, Luis Miguel Ochoa, En reparación, $103.00. Las órdenes 1 y 2 no aparecen porque ya fueron entregadas.
+
+
+
+
+
+
+**Consulta 5 — Consulta con agrupamiento y función de agregación (operador: γ)**
+
+#### Descripción:
+
+Se desea calcular, por cada técnico, cuántas órdenes ha atendido y cuánto ha facturado por los servicios realizados (costo_cobrado), mostrando solo a los técnicos con ingresos de al menos $25.
+
+#### Álgebra Relacional:
+
+```SQL
+
+σ ingresos ≥ 25 (γ t.id_tecnico, t.nombres, COUNT(DISTINCT o.id_orden) → ordenes, SUM(ds.costo_cobrado) → ingresos
+   (Tecnico t ⋈ t.id_tecnico = o.id_tecnico Orden_Reparacion o ⋈ o.id_orden = ds.id_orden Detalle_Servicio ds))
+
+```
+
+#### SQL:
+
+```SQL
+
+SELECT   t.nombres, COUNT(DISTINCT o.id_orden) AS ordenes,
+         SUM(ds.costo_cobrado) AS ingresos
+FROM     Tecnico t
+JOIN     Orden_Reparacion o ON t.id_tecnico = o.id_tecnico
+JOIN     Detalle_Servicio ds ON o.id_orden = ds.id_orden
+GROUP BY t.id_tecnico, t.nombres
+HAVING   SUM(ds.costo_cobrado) >= 25
+ORDER BY ingresos DESC,
+
+```
+
+#### Resultado esperado:
+
+Se obtienen 3 técnicos: Luis Miguel Ochoa (2 órdenes, $50.00), Diego Armando Cueva (1 orden, $32.00) y Karla Nicole Vega (1 orden, $25.00). Paola Estefania Rojas queda excluida porque sus ingresos suman $16.00, y Andres Felipe Mora no aparece porque no tiene órdenes asignadas.
+
+---
+
+####  [Link de Drive]()
 
 
 ---
 
-##   📝 ***Reflexiones y Conclusiones***
+
+##   📝 ***Conclusiones y Bibliografia***
 ###   📌 Conclusiones:
-🔹 
+🔹 Conclusión 1: La elaboración del diagrama Entidad-Relación y del modelo relacional permitió comprender cómo un problema real se traduce en entidades, atributos y relaciones. La mayor dificultad fue decidir qué conceptos debían ser entidades independientes (como Pago y Garantia) y cuáles eran relaciones N:M que requerían una tabla intermedia (Detalle_Producto, Detalle_Servicio y Suministro), además de definir correctamente las cardinalidades y evitar la redundancia.
 
-🔹 
+🔹 Conclusión 2: La escritura del código SQL (DDL y DML) ayudó a entender la estructura de una base de datos relacional y la importancia de la integridad referencial. Las restricciones PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL y CHECK garantizan que los datos sean coherentes, por ejemplo: que no exista una orden sin equipo ni técnico, ni un stock negativo. También resultó relevante respetar el orden de creación e inserción de las tablas según sus dependencias.
 
-🔹 
+🔹 Conclusión 3: El álgebra relacional permitió plantear cada consulta de forma lógica, decidiendo qué operadores aplicar y en qué orden antes de escribir el SQL, lo que facilitó su traducción a SELECT, WHERE, JOIN, UNION, subconsultas y GROUP BY. Las consultas que combinan varias tablas (JOIN) y las de agrupamiento fueron las más útiles para obtener información del taller, como el estado de las órdenes pendientes y los ingresos por técnico.
 
 
 
-###   💡 Reflexión crítica:
+###   💡 Bibliografia:
 
-🔹 
+🔹 [1] C. J. Sánchez Aldana y F. I. Mosquera Motta, Modelamiento de bases de datos. Bogotá, Colombia: Universidad Piloto de Colombia, 2020. ISBN: 978-958-5106-22-2. [En línea]. Disponible en: https://www.digitaliapublishing.com/a/111424/modelamiento-de-base-de-datos.
 
-🔹 
+🔹 [2] R. McFadyen, Relational Databases and Microsoft Access 365, Version 4.0. Winnipeg, MB, Canadá: University of Winnipeg, 2021. [En línea]. Disponible en: https://open.umn.edu/opentextbooks/textbooks/relational-databases-and-microsoft-access.
 
-🔹 
+🔹 [3] V. T. N. Chau y S. Chittayasothorn, “A bitemporal SQL database design method from the enhanced entity-relationship model,” en Proc. 2021 7th Int. Conf. Eng., Appl. Sci. Technol. (ICEAST), Pattaya, Tailandia, abr. 2021,  https://doi.org/10.1109/ICEAST52143.2021.9426270. 
 
+🔹 [4] S. Kryshtanovych, O. Ivanytska, M. Markova, Y. Hliudzyk y A. Ivanova, “A graphical language-based approach for database modeling in higher education information systems,” Ingénierie des Systèmes d’Information, vol. 28, n.º 6, pp. 1597–1603, dic. 2023, https://doi.org/10.18280/isi.280616. 
+
+🔹 [5] T. A. Kustitskaya, R. V. Esin, A. A. Kytmanov y T. V. Zykova, “Designing an education database in a higher education institution for the data-driven management of the educational process,” Educ. Sci., vol. 13, n.º 9, Art. n.º 947, sep. 2023, https://doi.org/10.3390/educsci13090947. 
+
+🔹 [6] Oracle Corporation, “MySQL 9.7 Reference Manual,” 2026. [En línea]. Disponible en: https://dev.mysql.com/doc/refman/9.7/en/preface.html. Accedido: 8 de nov. de 2026.
+
+🔹 [7] J. Kessler, “RelaX – relational algebra calculator,” University of Innsbruck, Innsbruck, Austria, 2025. [En línea]. Disponible en: https://dbis-uibk.github.io/relax/calc/local/uibk/local/0. Accedido: 8 de nov. de 2026.
 
 ---
 
