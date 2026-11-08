@@ -267,6 +267,8 @@ WHERE  (estado = 'En reparación' OR estado = 'Aprobado' OR estado = 'Listo')
 
 Se obtienen 2 órdenes: la orden 3 (En reparación, $103.00) y la orden 6 (Listo, $103.00). La orden 4 (Aprobado) no aparece porque su total estimado es de $26.75.
 
+<img width="975" height="247" alt="image" src="https://github.com/user-attachments/assets/4fd3ce50-27fe-42c4-9187-63eb0af2ce1d" />
+
 
 
 
@@ -299,6 +301,8 @@ SELECT email FROM Proveedor;
 #### Resultado esperado:
 
 Se muestra una sola columna (email) con 11 correos distintos: los 6 de los clientes y los 5 de los proveedores.
+
+<img width="531" height="409" alt="image" src="https://github.com/user-attachments/assets/dbb128a8-7839-47af-b93c-bd7842a8b8ed" />
 
 
 
@@ -336,6 +340,8 @@ WHERE  c.id_cliente IN (SELECT id_cliente
 #### Resultado esperado:
 
 Se obtiene un solo registro: Pedro Pablo Jaramillo (0996666666), cuya laptop Lenovo IdeaPad 3 todavía no ha ingresado a una orden de reparación.
+
+<img width="975" height="217" alt="image" src="https://github.com/user-attachments/assets/3e17bf88-7337-49e3-90ff-cef116fadc8c" />
 
 
 
@@ -377,6 +383,8 @@ ORDER BY o.id_orden;
 
 Se obtienen 5 filas (las órdenes 3 a 7), por ejemplo: Ana Lucia Torres, Dell Inspiron 14, Luis Miguel Ochoa, En reparación, $103.00. Las órdenes 1 y 2 no aparecen porque ya fueron entregadas.
 
+<img width="975" height="141" alt="image" src="https://github.com/user-attachments/assets/7618bdc5-e3ee-491c-99c9-8536a27653ef" />
+
 
 
 
@@ -415,6 +423,9 @@ ORDER BY ingresos DESC;
 #### Resultado esperado:
 
 Se obtienen 3 técnicos: Luis Miguel Ochoa (2 órdenes, $50.00), Diego Armando Cueva (1 orden, $32.00) y Karla Nicole Vega (1 orden, $25.00). Paola Estefania Rojas queda excluida porque sus ingresos suman $16.00, y Andres Felipe Mora no aparece porque no tiene órdenes asignadas.
+
+<img width="742" height="461" alt="image" src="https://github.com/user-attachments/assets/ec1fe736-baa8-4a74-9b02-54ee93759984" />
+
 
 ---
 
