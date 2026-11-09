@@ -303,7 +303,7 @@ SELECT email FROM Proveedor;
 
 Se muestra una sola columna (email) con 11 correos distintos: los 6 de los clientes y los 5 de los proveedores.
 
-<img width="531" height="409" alt="image" src="https://github.com/user-attachments/assets/dbb128a8-7839-47af-b93c-bd7842a8b8ed" />
+<p align="center"><em><img width="531" height="409" alt="image" src="https://github.com/user-attachments/assets/dbb128a8-7839-47af-b93c-bd7842a8b8ed" /></em></p>
 <p align="center"><em>Figura 8. Segunda Consulta.</em></p>
 
 
@@ -425,7 +425,7 @@ ORDER BY ingresos DESC;
 
 Se obtienen 3 técnicos: Luis Miguel Ochoa (2 órdenes, $50.00), Diego Armando Cueva (1 orden, $32.00) y Karla Nicole Vega (1 orden, $25.00). Paola Estefania Rojas queda excluida porque sus ingresos suman $16.00, y Andres Felipe Mora no aparece porque no tiene órdenes asignadas.
 
-<img width="742" height="461" alt="image" src="https://github.com/user-attachments/assets/ec1fe736-baa8-4a74-9b02-54ee93759984" />
+<p align="center"><em><img width="742" height="461" alt="image" src="https://github.com/user-attachments/assets/ec1fe736-baa8-4a74-9b02-54ee93759984" /></em></p>
 <p align="center"><em>Figura 11. Quinta Consulta.</em></p>
 
 ---
