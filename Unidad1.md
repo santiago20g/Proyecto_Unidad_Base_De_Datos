@@ -6,7 +6,8 @@
 
 **"Implementación de una base de datos para la gestión de venta, mantenimiento y reparación de computadoras y laptops en un taller de servicio técnico"**
 
-💡 Contexto del Problema: 
+**💡 Contexto del Problema:** 
+
 El problema se presenta en un taller de servicio técnico que vende computadoras de escritorio, laptops, repuestos y accesorios, y que además recibe los equipos de sus clientes para mantenimiento preventivo o reparación, se registran diariamente ventas, recepciones de equipos, diagnósticos, reparaciones, compras a proveedores y cobros, lo que genera un volumen considerable de información que debe guardarse y consultarse de forma ordenada.
 Sin una base de datos, la información suele llevarse en cuadernos, hojas de cálculo o comprobantes sueltos, esto provoca datos duplicados o incompletos, dificultad para conocer el historial de un cliente o de un equipo, pérdida de órdenes de reparación, errores al calcular totales y pagos, desconocimiento del stock real de repuestos y poco registro sobre qué técnico atendió cada trabajo, qué repuestos se utilizaron y qué garantía se ofreció.
 El problema afecta a los clientes, que no reciben información clara sobre el estado de su equipo, los costos ni la garantía, a los técnicos y al personal administrativo, que pierden tiempo buscando datos, y al propietario del taller, que no dispone de información confiable para controlar los ingresos, el inventario y las compras a proveedores.
