@@ -41,7 +41,7 @@ El diagrama Entidad-Relación del sistema está formado por nueve entidades: Cli
 
 El modelo relacional se obtuvo al transformar cada entidad en una tabla y cada relación N:M en una tabla intermedia, para un total de 12 tablas. En el diagrama las claves primarias (PK) se muestran subrayadas y las claves foráneas (FK) se representan con flechas hacia la tabla y la clave que referencian. Los tipos de datos sugeridos son INT para identificadores y cantidades, VARCHAR para textos, DATE y DATETIME para fechas, y DECIMAL para valores monetarios.
 
-<img width="975" height="861" alt="image" src="https://github.com/user-attachments/assets/a067605d-ea75-4747-b519-c06411d4bdc9" />
+<img width="1064" height="949" alt="diagrama_relacional" src="https://github.com/user-attachments/assets/b92b7f99-a7e2-45d6-9f7e-4720ec9edbe2" />
 <p align="center"><em>Figura 2. Modelo relacional del sistema de gestión de venta y reparación de computadoras y laptops.</em></p>
 
 ---
