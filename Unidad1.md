@@ -42,8 +42,12 @@ El diagrama Entidad-Relación del sistema está formado por nueve entidades: Cli
 
 El modelo relacional se obtuvo al transformar cada entidad en una tabla y cada relación N:M en una tabla intermedia, para un total de 12 tablas. En el diagrama las claves primarias (PK) se muestran subrayadas y las claves foráneas (FK) se representan con flechas hacia la tabla y la clave que referencian. Los tipos de datos sugeridos son INT para identificadores y cantidades, VARCHAR para textos, DATE y DATETIME para fechas, y DECIMAL para valores monetarios.
 
-<img width="1064" height="949" alt="diagrama_relacional" src="https://github.com/user-attachments/assets/b92b7f99-a7e2-45d6-9f7e-4720ec9edbe2" />
+<img width="1647" height="952" alt="image" src="https://github.com/user-attachments/assets/6b816e4f-a9e1-46d1-803f-f6a2ab4f92e8" />
 <p align="center"><em>Figura 2. Modelo relacional del sistema de gestión de venta y reparación de computadoras y laptops.</em></p>
+
+
+<img width="1064" height="949" alt="diagrama_relacional" src="https://github.com/user-attachments/assets/b92b7f99-a7e2-45d6-9f7e-4720ec9edbe2" />
+<p align="center"><em>Figura 3. Modelo relacional del sistema de gestión de venta y reparación de computadoras y laptops.</em></p>
 
 ---
 
@@ -184,7 +188,7 @@ VALUES
 
 ```
 <img width="938" height="255" alt="image" src="https://github.com/user-attachments/assets/85843ec3-5988-4829-9e7e-fcda3fa1011a" />
-<p align="center"><em>Figura 3. Creación de la Tabla de la entidad cliente.</em></p>
+<p align="center"><em>Figura 4. Creación de la Tabla de la entidad cliente.</em></p>
 
 ```SQL
 
@@ -199,7 +203,7 @@ VALUES
 
 ```
 <img width="937" height="294" alt="image" src="https://github.com/user-attachments/assets/69b45a1a-9307-4b14-96ee-3da2b144f186" />
-<p align="center"><em>Figura 4. Creación de la Tabla de la entidad técnico.</em></p>
+<p align="center"><em>Figura 5. Creación de la Tabla de la entidad técnico.</em></p>
 
 ```SQL
 
@@ -216,7 +220,7 @@ VALUES
 
 ```
 <img width="941" height="220" alt="image" src="https://github.com/user-attachments/assets/9f69a0f3-9119-4e44-96cf-a0da51291d11" />
-<p align="center"><em>Figura 5. Creación de la Tabla de la entidad equipo.</em></p>
+<p align="center"><em>Figura 6. Creación de la Tabla de la entidad equipo.</em></p>
 
 ```SQL
 
@@ -233,7 +237,7 @@ VALUES
 
 ```
 <img width="1177" height="257" alt="image" src="https://github.com/user-attachments/assets/23d57b20-aafb-487b-a740-2b4542cfa5c0" />
-<p align="center"><em>Figura 6. Creación de la Tabla de la entidad orden_reparacion.</em></p>
+<p align="center"><em>Figura 7. Creación de la Tabla de la entidad orden_reparacion.</em></p>
 
 
 ---
@@ -270,7 +274,7 @@ WHERE  (estado = 'En reparación' OR estado = 'Aprobado' OR estado = 'Listo')
 Se obtienen 2 órdenes: la orden 3 (En reparación, $103.00) y la orden 6 (Listo, $103.00). La orden 4 (Aprobado) no aparece porque su total estimado es de $26.75.
 
 <img width="975" height="247" alt="image" src="https://github.com/user-attachments/assets/4fd3ce50-27fe-42c4-9187-63eb0af2ce1d" />
-<p align="center"><em>Figura 7. Primera Consulta.</em></p>
+<p align="center"><em>Figura 8. Primera Consulta.</em></p>
 
 
 
@@ -305,7 +309,7 @@ SELECT email FROM Proveedor;
 Se muestra una sola columna (email) con 11 correos distintos: los 6 de los clientes y los 5 de los proveedores.
 
 <p align="center"><em><img width="531" height="409" alt="image" src="https://github.com/user-attachments/assets/dbb128a8-7839-47af-b93c-bd7842a8b8ed" /></em></p>
-<p align="center"><em>Figura 8. Segunda Consulta.</em></p>
+<p align="center"><em>Figura 9. Segunda Consulta.</em></p>
 
 
 
@@ -344,7 +348,7 @@ WHERE  c.id_cliente IN (SELECT id_cliente
 Se obtiene un solo registro: Pedro Pablo Jaramillo (0996666666), cuya laptop Lenovo IdeaPad 3 todavía no ha ingresado a una orden de reparación.
 
 <img width="975" height="217" alt="image" src="https://github.com/user-attachments/assets/3e17bf88-7337-49e3-90ff-cef116fadc8c" />
-<p align="center"><em>Figura 9. Tercera Consulta.</em></p>
+<p align="center"><em>Figura 10. Tercera Consulta.</em></p>
 
 
 
@@ -386,7 +390,7 @@ ORDER BY o.id_orden;
 Se obtienen 5 filas (las órdenes 3 a 7), por ejemplo: Ana Lucia Torres, Dell Inspiron 14, Luis Miguel Ochoa, En reparación, $103.00. Las órdenes 1 y 2 no aparecen porque ya fueron entregadas.
 
 <img width="975" height="141" alt="image" src="https://github.com/user-attachments/assets/7618bdc5-e3ee-491c-99c9-8536a27653ef" />
-<p align="center"><em>Figura 10. Cuarta Consulta.</em></p>
+<p align="center"><em>Figura 11. Cuarta Consulta.</em></p>
 
 
 
@@ -427,7 +431,7 @@ ORDER BY ingresos DESC;
 Se obtienen 3 técnicos: Luis Miguel Ochoa (2 órdenes, $50.00), Diego Armando Cueva (1 orden, $32.00) y Karla Nicole Vega (1 orden, $25.00). Paola Estefania Rojas queda excluida porque sus ingresos suman $16.00, y Andres Felipe Mora no aparece porque no tiene órdenes asignadas.
 
 <p align="center"><em><img width="742" height="461" alt="image" src="https://github.com/user-attachments/assets/ec1fe736-baa8-4a74-9b02-54ee93759984" /></em></p>
-<p align="center"><em>Figura 11. Quinta Consulta.</em></p>
+<p align="center"><em>Figura 12. Quinta Consulta.</em></p>
 
 ---
 
