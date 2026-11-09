@@ -34,7 +34,7 @@ Diseñar e implementar una base de datos relacional en MySQL, mediante los model
 El diagrama Entidad-Relación del sistema está formado por nueve entidades: Cliente, Equipo, Orden_Reparación, Técnico, Servicio, Producto, Proveedor, Pago y Garantía. Las relaciones son: un Cliente posee varios Equipos (1:N), un Equipo genera varias Ordenes de reparación (1:N), un Técnico atiende varias Ordenes (1:N), una Orden registra varios Pagos (1:N) y otorga varias Garantías (1:N), una Orden incluye varios Servicios y un Servicio puede estar en varias Ordenes (N:M, con el atributo costo_cobrado), una Orden usa varios Productos como repuestos y un Producto puede usarse en varias Ordenes (N:M, con los atributos cantidad, precio_unitario y subtotal), y un Producto es suministrado por varios Proveedores y viceversa (N:M, con los atributos precio_compra y fecha_suministro). Las relaciones N:M se convierten en las tablas intermedias Detalle_Servicio, Detalle_Producto y Suministro.
 
 <img width="975" height="812" alt="image" src="https://github.com/user-attachments/assets/1d67757c-c224-4bdd-b23d-d71c9276f2b3" />
-
+<p align="center"><em>Figura 1. Diagrama Entidad-Relación del sistema de gestión de venta y reparación de computadoras y laptops.</em></p>
 
 
 **Modelo Relacional**
@@ -42,6 +42,7 @@ El diagrama Entidad-Relación del sistema está formado por nueve entidades: Cli
 El modelo relacional se obtuvo al transformar cada entidad en una tabla y cada relación N:M en una tabla intermedia, para un total de 12 tablas. En el diagrama las claves primarias (PK) se muestran subrayadas y las claves foráneas (FK) se representan con flechas hacia la tabla y la clave que referencian. Los tipos de datos sugeridos son INT para identificadores y cantidades, VARCHAR para textos, DATE y DATETIME para fechas, y DECIMAL para valores monetarios.
 
 <img width="975" height="861" alt="image" src="https://github.com/user-attachments/assets/a067605d-ea75-4747-b519-c06411d4bdc9" />
+<p align="center"><em>Figura 2. Modelo relacional del sistema de gestión de venta y reparación de computadoras y laptops.</em></p>
 
 ---
 
@@ -182,7 +183,7 @@ VALUES
 
 ```
 <img width="938" height="255" alt="image" src="https://github.com/user-attachments/assets/85843ec3-5988-4829-9e7e-fcda3fa1011a" />
-
+<p align="center"><em>Figura 3. Creación de la Tabla de la entidad cliente.</em></p>
 
 ```SQL
 
@@ -197,7 +198,7 @@ VALUES
 
 ```
 <img width="937" height="294" alt="image" src="https://github.com/user-attachments/assets/69b45a1a-9307-4b14-96ee-3da2b144f186" />
-
+<p align="center"><em>Figura 4. Creación de la Tabla de la entidad técnico.</em></p>
 
 ```SQL
 
@@ -214,7 +215,7 @@ VALUES
 
 ```
 <img width="941" height="220" alt="image" src="https://github.com/user-attachments/assets/9f69a0f3-9119-4e44-96cf-a0da51291d11" />
-
+<p align="center"><em>Figura 5. Creación de la Tabla de la entidad equipo.</em></p>
 
 ```SQL
 
@@ -231,7 +232,7 @@ VALUES
 
 ```
 <img width="1177" height="257" alt="image" src="https://github.com/user-attachments/assets/23d57b20-aafb-487b-a740-2b4542cfa5c0" />
-
+<p align="center"><em>Figura 6. Creación de la Tabla de la entidad orden_reparacion.</em></p>
 
 
 ---
@@ -268,7 +269,7 @@ WHERE  (estado = 'En reparación' OR estado = 'Aprobado' OR estado = 'Listo')
 Se obtienen 2 órdenes: la orden 3 (En reparación, $103.00) y la orden 6 (Listo, $103.00). La orden 4 (Aprobado) no aparece porque su total estimado es de $26.75.
 
 <img width="975" height="247" alt="image" src="https://github.com/user-attachments/assets/4fd3ce50-27fe-42c4-9187-63eb0af2ce1d" />
-
+<p align="center"><em>Figura 7. Primera Consulta.</em></p>
 
 
 
@@ -303,7 +304,7 @@ SELECT email FROM Proveedor;
 Se muestra una sola columna (email) con 11 correos distintos: los 6 de los clientes y los 5 de los proveedores.
 
 <img width="531" height="409" alt="image" src="https://github.com/user-attachments/assets/dbb128a8-7839-47af-b93c-bd7842a8b8ed" />
-
+<p align="center"><em>Figura 8. Segunda Consulta.</em></p>
 
 
 
@@ -342,7 +343,7 @@ WHERE  c.id_cliente IN (SELECT id_cliente
 Se obtiene un solo registro: Pedro Pablo Jaramillo (0996666666), cuya laptop Lenovo IdeaPad 3 todavía no ha ingresado a una orden de reparación.
 
 <img width="975" height="217" alt="image" src="https://github.com/user-attachments/assets/3e17bf88-7337-49e3-90ff-cef116fadc8c" />
-
+<p align="center"><em>Figura 9. Tercera Consulta.</em></p>
 
 
 
@@ -384,7 +385,7 @@ ORDER BY o.id_orden;
 Se obtienen 5 filas (las órdenes 3 a 7), por ejemplo: Ana Lucia Torres, Dell Inspiron 14, Luis Miguel Ochoa, En reparación, $103.00. Las órdenes 1 y 2 no aparecen porque ya fueron entregadas.
 
 <img width="975" height="141" alt="image" src="https://github.com/user-attachments/assets/7618bdc5-e3ee-491c-99c9-8536a27653ef" />
-
+<p align="center"><em>Figura 10. Cuarta Consulta.</em></p>
 
 
 
@@ -425,7 +426,7 @@ ORDER BY ingresos DESC;
 Se obtienen 3 técnicos: Luis Miguel Ochoa (2 órdenes, $50.00), Diego Armando Cueva (1 orden, $32.00) y Karla Nicole Vega (1 orden, $25.00). Paola Estefania Rojas queda excluida porque sus ingresos suman $16.00, y Andres Felipe Mora no aparece porque no tiene órdenes asignadas.
 
 <img width="742" height="461" alt="image" src="https://github.com/user-attachments/assets/ec1fe736-baa8-4a74-9b02-54ee93759984" />
-
+<p align="center"><em>Figura 11. Quinta Consulta.</em></p>
 
 ---
 
